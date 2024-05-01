@@ -16,7 +16,7 @@ In the router app you will find 2 folders, one _**(app)**_ is the one that has t
 
 To get started with the project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-repo.git`
+1. Clone the repository: `git clone https://github.com/SAX2/nextjs-shopify-storefront.git`
 2. Install dependencies: `npm install`
 3. Start the development server: `npm run dev`
 
