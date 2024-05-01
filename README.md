@@ -31,7 +31,19 @@ SHOPIFY_PUBLIC_API_URL=your-shopify-public-url-graphql
 
 You can obtain these values by setting up a Shopify Partner account and creating a new app in the Shopify Partner Dashboard.
 
-To fully enable Shopify integration, you need to uncomment all lines containing `//shopify` and remove the `//provitional` comments throughout the codebase.
+## Enable middleware redirection to shopify app
+
+In order to redirect everything to the connected Shopify app you have to change the following variables within the `.env` file:
+
+````
+shopify=true
+`````
+
+In order to redirect everything to the example app you have to change the following variables within the `.env` file:
+
+````
+shopify=false
+`````
 
 ## Contributing
 
