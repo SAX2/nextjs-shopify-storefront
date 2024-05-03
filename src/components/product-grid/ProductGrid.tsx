@@ -12,12 +12,14 @@ const ProductGrid = ({
   items,
   className,
   title,
-  category
+  category,
+  route
 }: {
   title?: string;
   className?: string;
   items: { node: Product }[];
   category?: string,
+  route?: 'example';
 }) => {
   const params = useParams();
 
@@ -35,7 +37,7 @@ const ProductGrid = ({
           const path = getPath(item.node.id, item.node.handle ?? "");
 
           return (
-            <Link href={path} className="flex flex-col gap-2 justify-center h-fit" key={item.node.id}>
+            <Link href={route === 'example' ? `/${route}${path}` : path} className="flex flex-col gap-2 justify-center h-fit" key={item.node.id}>
               <div className="w-full h-auto flex">
                 <Image
                   className=""

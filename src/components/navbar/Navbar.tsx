@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import React from 'react'
-import Logo from '../../../../public/logo/stussy.svg'
+import Logo from '../../../public/logo/stussy.svg'
 import Image from 'next/image';
-import Bag from '../../../components/bag/Bag';
+import Bag from '../bag/Bag';
 import Search from '@/components/search/Search';
 import { navbar } from '@/utils/data/navbar';
 import { cookies } from 'next/headers'
 
-const Navbar = () => {
+const Navbar = ({ route }: { route?: 'example' }) => {
   const cookieStore = cookies()
   const cartId = cookieStore.get("cartId");
 
@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav className="py-3 px-5 max-md:px-3 max-md:py-2 border-b border-black/5 flex justify-center w-full sticky top-0 bg-white">
       <div className="flex items-center max-w-[1400px] w-full gap-4 justify-between">
         <div className="flex gap-16 items-center">
-          <Link href={"/"}>
+          <Link href={route === "example" ? "/example" : "/"}>
             <Image
               src={Logo}
               width={100}
@@ -29,7 +29,7 @@ const Navbar = () => {
               return (
                 <li key={item.path}>
                   <Link
-                    href={item.path}
+                    href={route === "example" ? `/${route}${item.path}`  : item.path}
                     className={
                       "text-xs font-medium text-black flex items-center gap-1"
                     }
