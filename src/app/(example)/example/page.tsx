@@ -1,5 +1,5 @@
 import ProductGrid from "@/components/product-grid/ProductGrid";
-import { products } from "@/utils/data/products"; // provitional
+import { products } from "@/utils/data/products";
 
 export default async function Home() {
   return (

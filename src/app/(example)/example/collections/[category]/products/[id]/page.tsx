@@ -10,15 +10,27 @@ import { products } from '@/utils/data/products';
 
 const page = async ({
   params: { id },
-  searchParams: { variant },
+  searchParams: { variant: variantId },
 }: {
   params: { id: string };
   searchParams: { variant: string };
 }) => {
   
-  const data = products.filter(
-    (item) => item.node.id.toLowerCase() === id.split("-")[0]
-  )[0];
+  const data = products
+    .filter((item) => item.node.id.toLowerCase() === id.split("-")[0])
+    .map((item) => ({
+      node: {
+        ...item.node,
+        variants: {
+          edges:
+            item.node.variants?.edges.filter(
+              (variant) => variant.node.id === variantId
+            ) || [],
+        },
+      },
+    }))[0];
+
+  const variants = products.filter((item) => item.node.id.toLowerCase() === id.split("-")[0])[0];
 
   return (
     <main className="w-full flex justify-center max-md:p-4">
@@ -36,16 +48,16 @@ const page = async ({
                 )}
               </p>
             </div>
-            {data.node.variants?.edges && (
-              <Variants variants={data.node.variants?.edges ?? []} />
+            {variants.node.variants?.edges && (
+              <Variants variants={variants.node.variants?.edges ?? []} />
             )}
             <ProductMoreData description={data.node.description ?? ""} />
             <div className="absolute bottom-0 pb-4 w-full flex gap-3">
               {data.node.totalInventory === 0 && <Button type="sold-out" />}
               {data.node.totalInventory && data.node.totalInventory > 0 && (
                 <>
-                  <Button type="bag" />
-                  <Button type="checkout" />
+                  <Button type="bag" product={data.node} />
+                  <Button type="checkout"  />
                 </>
               )}
             </div>

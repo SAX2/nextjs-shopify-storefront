@@ -1,6 +1,13 @@
-import React from 'react'
+'use client';
 
-const Button = ({ type }: { type: 'bag' | 'checkout' | 'sold-out' }) => {
+import React from 'react'
+import { useCartStore } from "@/app/(example)/lib/providers/cart/store";
+import { Product } from '@/utils/data/products/types';
+
+const Button = ({ type, product }: { type: 'bag' | 'checkout' | 'sold-out', product?: Product, productId?: string }) => {
+
+  if (!product) return;
+
   return (
     <>
       {type === "sold-out" && (
@@ -11,19 +18,24 @@ const Button = ({ type }: { type: 'bag' | 'checkout' | 'sold-out' }) => {
           SOLD OUT
         </button>
       )}
-      {type === "bag" && <AddToBag />}
+      {type === "bag" && <AddToBag item={product}  />}
       {type === "checkout" && <Checkout />}
     </>
   );
 }
 
-const AddToBag = () => {
+const AddToBag = ({ item }: { item: Product }) => {
+  const { add } = useCartStore();
+
   return (
-    <button className="w-full text-white bg-black font-semibold p-4 text-center">
+    <button
+      className="w-full text-white bg-black font-semibold p-4 text-center"
+      onClick={() => add(item)}
+    >
       ADD TO BAG
     </button>
   );
-}
+};
 
 const Checkout = () => {
   return (
